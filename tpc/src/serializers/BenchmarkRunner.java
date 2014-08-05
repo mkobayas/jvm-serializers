@@ -30,6 +30,9 @@ public class BenchmarkRunner extends MediaItemBenchmark
 
     protected void addTests(TestGroups groups)
     {
+
+        MinimumMarshallerSer.register(groups);
+        
         // Binary Formats; language-specific ones
         JavaBuiltIn.register(groups);
         JavaManual.register(groups);
@@ -120,6 +123,5 @@ public class BenchmarkRunner extends MediaItemBenchmark
         // Then binary XML; Fast Infoset, EXI
         XmlStax.register(groups, false, false, true); // -/-/fast-infoset
         ExiExificient.register(groups);
-
     }
 }

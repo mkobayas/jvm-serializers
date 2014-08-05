@@ -59,6 +59,9 @@ public class MediaStreamBenchmark extends BenchmarkBase
         
         // XML (only fastest codecs)
         XmlStax.register(groups, false, true, true); // skip woodstox, include aalto and fast-infoset
+        
+
+        MinimumMarshallerSer.register(groups);
     }
 
     @Override
@@ -115,6 +118,11 @@ public class MediaStreamBenchmark extends BenchmarkBase
             }
             return iterationTime(System.nanoTime() - start, iterations);
         }
+        
+        @Override
+        public String toString() {
+        	return "Create(Stream)";
+        }
     };
 
     protected final TestCase Serialize = new TestCase()
@@ -135,6 +143,11 @@ public class MediaStreamBenchmark extends BenchmarkBase
             }
             return iterationTime(System.nanoTime() - start, iterations);
         }
+        
+        @Override
+        public String toString() {
+        	return "Serialize(Stream)";
+        }
     };
 
     protected final TestCase Deserialize = new TestCase()
@@ -149,6 +162,11 @@ public class MediaStreamBenchmark extends BenchmarkBase
                 serializer.deserializeItems(new ByteArrayInputStream(bytes), src.length);
             }
             return iterationTime(System.nanoTime() - start, iterations);
+        }
+        
+        @Override
+        public String toString() {
+        	return "Deserialize(Stream)";
         }
     };
 

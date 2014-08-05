@@ -184,6 +184,7 @@ else
 		$(JavaSourceFiles)
 	# Copy resources
 	$(p2)cp $(JavaSourceRoots)/log4j.xml build/bytecode/main
+	$(p2)cp $(JavaSourceRoots)/marshaller-config.xml build/bytecode/main
 endif
 
 compile: build/bytecode/main.compile
