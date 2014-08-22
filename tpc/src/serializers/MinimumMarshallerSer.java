@@ -51,21 +51,18 @@ public class MinimumMarshallerSer {
 		@Override
 		public final void serializeItems(final T[] items, final OutputStream os)
 				throws Exception {
-			OOutputStream oos = new OOutputStream(os);
 			for (Object item : items) {
-				oos.writeObject(items);
+				MinimumMarshaller.marshal(item, os);
 			}
-			oos.flush();
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public T[] deserializeItems(final InputStream in, final int numOfItems)
 				throws Exception {
-			OInputStream oi = new OInputStream(in);
 			T[] result = (T[]) Array.newInstance(clz, numOfItems);
 			for (int i = 0; i < numOfItems; ++i) {
-				result[i] = (T)oi.readObject();
+				result[i] = (T)MinimumMarshaller.unmarshal(in);
 			}
 			return result;
 		}
