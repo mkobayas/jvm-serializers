@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Array;
 
 import org.mk300.marshal.minimum.MinimumMarshaller;
+import org.mk300.marshal.minimum.io.*;
 
 import data.media.MediaContent;
 
@@ -23,6 +24,7 @@ public class MinimumMarshallerSer {
 	private static final class MinimumSerializer<T> extends Serializer<T> {
 		private final String name;
 		private final Class<T> clz;
+		private final OOutputImpl out = new OOutputImpl(32);
 
 		public MinimumSerializer(final String name, final Class<T> clz) {
 			this.name = name;
@@ -42,7 +44,8 @@ public class MinimumMarshallerSer {
 
 		@Override
 		public byte[] serialize(final T data) throws IOException {
-			return MinimumMarshaller.marshal(data);
+			out.writeObject(data);
+			return out.toBytes();
 		}
 
 		@SuppressWarnings("unused") 
